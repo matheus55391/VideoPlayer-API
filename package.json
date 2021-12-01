@@ -1,0 +1,37 @@
+{
+  "name": "projetoapivideofaculdade",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Matheus Felipe Vieira Santiago",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "formidable": "^2.0.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "_moduleAliases": {
+    "@": "src",
+    "@app": "src/app.js",
+    "@env": "src/config/env.js",
+    "@mysql": "src/config/mysql.js",
+    "@multervideo": "src/config/multervideo",
+    "@controllers": "src/controllers",
+    "@helpers": "src/helpers",
+    "@services": "src/services"
+  }
+}
