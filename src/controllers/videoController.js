@@ -49,7 +49,9 @@ exports.GetBuscarVideoPorId = async (req, res, next) =>{
 
     let video = await videoService.BuscarVideoPorId(id)    
     if(video == null) return res.status(404).json({error: {message:'Video não encontrado.'}})
+    console.log(video.comentarios)
     video.comentarios = await videoService.buscarComentarios(video.id)
+    console.log(video.comentarios)
     return await res.status(200).json(video) 
 
 }
@@ -62,16 +64,30 @@ exports.GetBuscarVideosPorIdCanal = async (req, res, next) =>{
 
 }
 
-exports.GetVideo =  (req, res, next) =>{
+exports.GetVideo =  async (req, res, next) =>{
 
     const nomeArquivo = req.query.vi
     if(!nomeArquivo) return res.status(404).json({error: {message:'Video não encontrado.'}})
     if(!nomeArquivo.includes('.mp4')) return res.status(404).json({error: {message:'Erro no nome do arquivo do video.'}})
     const url = arquivo.GerarUrlAbsoluta(nomeArquivo)
-    return res.status(200).sendFile(url)
+    return await res.status(200).sendFile(url)
     
 } 
 
-exports.PostComentarVideo = (req, res, next) =>{
-    console.log(req.body)
+exports.PostComentarVideo = async (req, res, next) =>{
+
+    const token = req.headers['authorization']
+    let id_video = req.body.id_video
+    let comentario = req.body.comentario
+    
+    if(!token) return res.status(401).json({error: { auth: false, message: 'Token não encontrado.' }});
+    
+    if(!id_video)  return res.status(404).json({error: { auth: false, message: 'Id do video vazio.' }});
+    if(!comentario) return res.status(404).json({error: { auth: false, message: 'Comentario vazio.' }});
+    const id_usuario = jwt.ValidarToken(token).id
+    await videoService.ComentarVideo(id_video, id_usuario, comentario)
+
+    return await res.status(200).json({
+        auth: true, message: 'Sucesso!'
+    })
 }
