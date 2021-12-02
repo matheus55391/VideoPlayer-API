@@ -12,6 +12,7 @@ router.get('/canal', VideoController.GetBuscarVideosPorIdCanal)
 
 router.post('/video/upload', multer(multerConfig).single('file'),  VideoController.PostUploadVideo)
 
+router.post('/video/comentar', VideoController.PostComentarVideo)
 router.get('/video/listaAleatoria', VideoController.GetListaAleatoria)
 router.get('/video/buscar/', VideoController.GetBuscarVideosPorNome)
 router.get('/video/player', VideoController.GetBuscarVideoPorId)

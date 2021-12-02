@@ -2,13 +2,12 @@
 
 create database videoplayer
 
-CREATE TABLE IF NOT EXISTS videoplayer.user  (
-  id_user  INT NOT NULL AUTO_INCREMENT,
-  username  VARCHAR(50) NOT NULL,
-  password  VARCHAR(100) NOT NULL,
-  flAtivo  INT NOT NULL DEFAULT 1,
-  PRIMARY KEY( id_user ),
-  UNIQUE( username )
+CREATE TABLE IF NOT EXISTS videoplayer.usuario  (
+  id_usuario  INT NOT NULL AUTO_INCREMENT,
+  nome  VARCHAR(50) NOT NULL,
+  senha  VARCHAR(100) NOT NULL,
+  PRIMARY KEY( id_usuario ),
+  UNIQUE( nome )
 )
 
 CREATE TABLE IF NOT EXISTS  videoplayer.video  (

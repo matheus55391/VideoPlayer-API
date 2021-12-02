@@ -1,9 +1,10 @@
 const videoService = require('@services/videoService') 
 const jwt = require('@helpers/jwt')
+const arquivo = require('@helpers/arquivo')
 
 exports.PostUploadVideo = async (req, res, next) => {
-
     const token = req.headers['authorization']
+    
     var file = req.file;
 
     if(!token) return res.status(401).json({error: { auth: false, message: 'Token não encontrado.' }});
@@ -15,7 +16,7 @@ exports.PostUploadVideo = async (req, res, next) => {
     if(!descricao)  descricao = null 
     if(!titulo)  titulo = file.originalname 
     const id_usuario = jwt.ValidarToken(token).id
-
+    
     await videoService.RegistrarVideo(id_usuario, file.filename, file.mimetype, titulo, descricao)
 
     return await res.status(200).json({
@@ -66,7 +67,11 @@ exports.GetVideo =  (req, res, next) =>{
     const nomeArquivo = req.query.vi
     if(!nomeArquivo) return res.status(404).json({error: {message:'Video não encontrado.'}})
     if(!nomeArquivo.includes('.mp4')) return res.status(404).json({error: {message:'Erro no nome do arquivo do video.'}})
-    const url = videoService.videoAbsoluteURL(nomeArquivo)
+    const url = arquivo.GerarUrlAbsoluta(nomeArquivo)
     return res.status(200).sendFile(url)
     
 } 
+
+exports.PostComentarVideo = (req, res, next) =>{
+    console.log(req.body)
+}

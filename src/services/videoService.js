@@ -16,10 +16,10 @@ exports.ListaAleatoria = async () =>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
-                    us.id_user AS idAutor, 
-                    us.username AS nomeAutor    
+                    us.id_usuario AS idAutor, 
+                    us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
-                    INNER JOIN videoplayer.user AS us ON (vi.id_usuario = us.id_user)
+                    INNER JOIN videoplayer.usuario AS us ON (vi.id_usuario = us.id_usuario)
                 ORDER BY RAND()
                 LIMIT 16`
     
@@ -47,12 +47,12 @@ exports.BuscarVideosPorIdCanal = async (id) =>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
-                    us.id_user AS idAutor, 
-                    us.username AS nomeAutor    
+                    us.id_usuario AS idAutor, 
+                    us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
-                    INNER JOIN videoplayer.user AS us ON (vi.id_usuario = us.id_user)
+                    INNER JOIN videoplayer.usuario AS us ON (vi.id_usuario = us.id_usuario)
                 WHERE 
-                    vi.id_usuario =${id}`
+                    vi.id_usuario = ${id}`
 
     let result = await mysql.query(SQL)  
     let arrayVideos = []
@@ -78,10 +78,10 @@ exports.BuscarVideosPorNome = async (nome)=>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
-                    us.id_user AS idAutor, 
-                    us.username AS nomeAutor    
+                    us.id_usuario AS idAutor, 
+                    us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
-                    INNER JOIN videoplayer.user AS us ON (vi.id_usuario = us.id_user)
+                    INNER JOIN videoplayer.usuario AS us ON (vi.id_usuario = us.id_usuario)
                 WHERE 
                     vi.video_nome LIKE '%${nome}%'`
 
@@ -110,10 +110,11 @@ exports.BuscarVideoPorId = async (id) => {
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
                     vi.descricao AS descricao,
-                    us.id_user AS idAutor, 
-                    us.username AS nomeAutor    
+                    vi.visualizacoes AS visualizacoes,
+                    us.id_usuario AS idAutor, 
+                    us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
-                    INNER JOIN videoplayer.user AS us ON (vi.id_usuario = us.id_user)
+                    INNER JOIN videoplayer.usuario AS us ON (vi.id_usuario = us.id_usuario)
                 WHERE
                     vi.id_video = ${id}`
     
@@ -125,9 +126,9 @@ exports.BuscarVideoPorId = async (id) => {
         titulo: result.nomeVideo,
         thumb: `${config.app.host}${config.app.port}/api/thumb/?tb=${result.nomeArquivo.replace('.mp4', '.jpg')}`,
         URL:   `${config.app.host}${config.app.port}/api/video/?vi=${result.nomeArquivo}`,
-        visualizacoes: 0,
+        visualizacoes: result.visualizacoes,
         descricao: result.descricao,
-        comentarios: null,
+        comentarios: [],
         autor:{
             idAutor: result.idAutor,
             nomeAutor: result.nomeAutor
@@ -142,12 +143,12 @@ exports.buscarComentarios = async (idVideo)=>{
                     co.id_comentario AS id, 
                     co.datahora, 
                     co.comentario,
-                    us.id_user AS idAutor, 
-                    us.username AS nomeAutor  
+                    us.id_usuario AS idAutor, 
+                    us.nome AS nomeAutor  
                 FROM 
                     videoplayer.comentario AS co
                 INNER JOIN 
-                    videoplayer.user AS us ON co.id_usuario = us.id_user
+                    videoplayer.usuario AS us ON co.id_usuario = us.id_usuario
                 INNER JOIN 
                     videoplayer.video AS vi ON co.id_video = vi.id_video
                 WHERE 
@@ -156,11 +157,3 @@ exports.buscarComentarios = async (idVideo)=>{
     result = await mysql.query(SQL)
     return await result
 }
-
-exports.videoAbsoluteURL = (nomeArquivo) =>{
-    if(nomeArquivo.includes('.mp4')) return path.resolve(__dirname, '..', '..', 'public','videos', nomeArquivo)
-    if(nomeArquivo.includes('.jpg')) return path.resolve(__dirname, '..', '..', 'public','thumb', nomeArquivo) 
-}
-
-
-

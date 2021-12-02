@@ -3,12 +3,10 @@ const express = require('express')
 const morgan = require('morgan')
 const routes = require('./routes')
 const cors = require('cors')
-const fs = require('fs')
-const path = require('path')
+const arquivo = require('@helpers/arquivo')
 const app = express()
- 
-if (!fs.existsSync(path.resolve(__dirname, '..', 'public','videos'))) fs.mkdirSync(path.resolve(__dirname, '..', 'public','videos'))
-if (!fs.existsSync(path.resolve(__dirname, '..', 'public','tumbs'))) fs.mkdirSync(path.resolve(__dirname, '..', 'public','tumbs'))
+
+arquivo.CriarPastasPublicas()
 
 app.use(cors({exposedHeaders: 'authorization'}));
 app.use(express.urlencoded({extended: true}))
