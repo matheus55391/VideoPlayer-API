@@ -159,10 +159,12 @@ exports.buscarComentarios = async (idVideo)=>{
 }
 
 exports.ComentarVideo = async (id_video, id_usuario, comentario) => {
-    console.log(id_usuario)
-
     const SQL = `INSERT INTO videoplayer.comentario (id_video, id_usuario, comentario, datahora)
                 VALUES (${id_video}, ${id_usuario}, '${comentario}', NOW())`
     result = await mysql.query(SQL)
     return await result
+}
+
+exports.ContarVisualizacao = async (id_video) =>{
+
 }
