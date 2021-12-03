@@ -78,6 +78,7 @@ exports.BuscarVideosPorNome = async (nome)=>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
+                    vi.descricao AS descricao,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
@@ -94,6 +95,7 @@ exports.BuscarVideosPorNome = async (nome)=>{
             id: video.idVideo,
             titulo: video.nomeVideo,
             thumb:  `${config.app.host}${config.app.port}/api/thumb/?vi=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
+            descricao: video.descricao,
             autor:{
                 idAutor: video.idAutor,
                 nomeAutor: video.nomeAutor
