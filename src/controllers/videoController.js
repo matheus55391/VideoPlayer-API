@@ -49,9 +49,9 @@ exports.GetBuscarVideoPorId = async (req, res, next) =>{
 
     let video = await videoService.BuscarVideoPorId(id)    
     if(video == null) return res.status(404).json({error: {message:'Video não encontrado.'}})
-    console.log(video.comentarios)
+    await videoService.ContarVisualizacao(id)
     video.comentarios = await videoService.buscarComentarios(video.id)
-    console.log(video.comentarios)
+    
     return await res.status(200).json(video) 
 
 }
@@ -91,3 +91,9 @@ exports.PostComentarVideo = async (req, res, next) =>{
         auth: true, message: 'Sucesso!'
     })
 }
+
+// exports.PutAtualizarThumb = async (req, res, next) =>{
+//     if(arquivo.VerificaExisteThumb) console.log('deletar arquivo')
+//     //TODO 
+
+// }

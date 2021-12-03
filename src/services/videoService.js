@@ -168,5 +168,6 @@ exports.ComentarVideo = async (id_video, id_usuario, comentario) => {
 }
 
 exports.ContarVisualizacao = async (id_video) =>{
-
+    const SQL = `UPDATE videoplayer.video SET visualizacoes = visualizacoes + 1 WHERE id_video = ${id_video}`
+    return await mysql.query(SQL)    
 }

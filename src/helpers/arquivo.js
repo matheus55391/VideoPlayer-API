@@ -11,3 +11,8 @@ exports.CriarPastasPublicas = ()=>{
     if (!fs.existsSync(path.resolve(__dirname, '..','..', 'public','videos'))) fs.mkdirSync(path.resolve(__dirname, '..', '..', 'public','videos'))
     if (!fs.existsSync(path.resolve(__dirname, '..','..', 'public','thumbs'))) fs.mkdirSync(path.resolve(__dirname, '..', '..','public','thumbs'))
 }
+
+exports.VerificaExisteThumb = (thumb)=>{
+    if(fs.existsSync(path.resolve(__dirname, '..','..', 'public', 'thumbs', '${thumb}'))) return true
+    return false
+}
