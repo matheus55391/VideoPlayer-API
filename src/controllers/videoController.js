@@ -5,19 +5,21 @@ const arquivo = require('@helpers/arquivo')
 exports.PostUploadVideo = async (req, res, next) => {
     const token = req.headers['authorization']
     
-    var file = req.file;
+    var files = req.files;
 
-    if(!token) return res.status(401).json({error: { auth: false, message: 'Token não encontrado.' }});
-    if(!file) return res.status(404).json({error: { auth: false, message: 'Arquivo não encontrado.' }});
+    if(!token) return res.status(401).json({error: { auth: false, message: 'Token não encontrado.' }})
+    const id_usuario = jwt.ValidarToken(token).id
+    if(files.length < 2) return res.status(404).json({error: { auth: false, message: 'Arquivos não encontrado.' }})
     
     let descricao = req.query.descricao
     let titulo = req.query.titulo
     
     if(!descricao)  descricao = null 
-    if(!titulo)  titulo = file.originalname 
-    const id_usuario = jwt.ValidarToken(token).id
+    if(!titulo)  titulo = files[0].originalname 
     
-    await videoService.RegistrarVideo(id_usuario, file.filename, file.mimetype, titulo, descricao)
+
+    
+    await videoService.RegistrarVideo(id_usuario, files[0].filename, files[0].mimetype, titulo, descricao, files[1].filename)
 
     return await res.status(200).json({
         auth: true, message: 'Sucesso!'

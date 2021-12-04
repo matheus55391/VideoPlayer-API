@@ -7,9 +7,9 @@ module.exports = {
     dest: path.resolve(__dirname, '..', '..', 'public','videos'),
 
     fileFilter: (req, file, cb) => {      
-        const allowedMines = ['video/mp4',]
+        const formatos = ['video/mp4','image/jpeg', 'image/png']
 
-        if(allowedMines.includes(file.mimetype)) {
+        if(formatos.includes(file.mimetype)) {
             let token = req.headers['authorization']  
             try{
                 token = jwt.ValidarToken(token)
@@ -26,9 +26,17 @@ module.exports = {
         destination: (req, file, cb) =>{
             let token = req.headers['authorization']
             if(token){
+
                 try{
                     token = jwt.ValidarToken(token)
-                    cb(null, path.resolve(__dirname, '..', '..', 'public','videos'))
+                    
+                    if(file.originalname.includes('.mp4')){
+                        cb(null, path.resolve(__dirname, '..', '..', 'public','videos'))
+                    } else{
+                        cb(null, path.resolve(__dirname, '..', '..', 'public','thumbs'))
+                    }
+
+
                 } catch(err){
                     cb(new Error('Invalid token.'))
                 }
@@ -39,8 +47,18 @@ module.exports = {
                 if(err) {
                     cb(err)
                 }
-                const fileName = `${hash.toString('hex')}` + ".mp4"
-                cb(null, fileName)
+                const fileName = (fileName) => {
+                    if(fileName.includes('.mp4')){
+                        return  `${hash.toString('hex')}` + ".mp4"
+                    } else if(fileName.includes('.jpg')){
+                        return  `${hash.toString('hex')}` + ".jpg"
+                    } else if(fileName.includes('.png')){
+                        return  `${hash.toString('hex')}` + ".png"
+                    } else{
+                        return cb(new Error('Formato invalido.'))
+                    }
+                }
+                cb(null, fileName(file.originalname))
             })
         }
     }),

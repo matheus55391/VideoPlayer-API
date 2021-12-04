@@ -1,11 +1,9 @@
 const mysql = require('@mysql')
 const config = require('@env')
-const path = require('path')
 
-
-exports.RegistrarVideo = async (id_usuario, file_nome, file_tipo, titulo, descricao) =>{
+exports.RegistrarVideo = async (id_usuario, file_nome, file_tipo, titulo, descricao, thumb_nome) =>{
     
-    const SQL = `INSERT INTO videoplayer.video (id_usuario, file_nome, file_tipo, video_nome, descricao) VALUES ('${id_usuario}', '${file_nome}', '${file_tipo}', '${titulo}', '${descricao}')`
+    const SQL = `INSERT INTO videoplayer.video (id_usuario, file_nome, file_tipo, video_nome, descricao, thumb) VALUES ('${id_usuario}', '${file_nome}', '${file_tipo}', '${titulo}', '${descricao}',  '${thumb_nome}')`
     return await mysql.query(SQL)
 
 }

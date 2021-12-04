@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS  videoplayer.video  (
   video_nome  VARCHAR(100) NOT NULL,
   visualizacoes  INT NOT NULL DEFAULT 0,
   descricao VARCHAR(500) NULL,
+  thumb VARCHAR(500) NULL,
   PRIMARY KEY ( id_video ),
   UNIQUE INDEX  id_video_UNIQUE  ( id_video  ASC) VISIBLE,
   UNIQUE INDEX  file_nome_UNIQUE  ( file_nome  ASC) VISIBLE
