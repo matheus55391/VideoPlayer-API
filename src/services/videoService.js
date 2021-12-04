@@ -14,6 +14,7 @@ exports.ListaAleatoria = async () =>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
+                    vi.thumb,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
@@ -29,7 +30,7 @@ exports.ListaAleatoria = async () =>{
         arrayVideos.push({
             id: video.idVideo,
             titulo: video.nomeVideo,
-            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
+            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
             autor:{
                 idAutor: video.idAutor,
                 nomeAutor: video.nomeAutor
@@ -45,6 +46,7 @@ exports.BuscarVideosPorIdCanal = async (id) =>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
+                    vi.thumb,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
@@ -60,7 +62,7 @@ exports.BuscarVideosPorIdCanal = async (id) =>{
         arrayVideos.push({
             id: video.idVideo,
             titulo: video.nomeVideo,
-            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
+            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
             autor:{
                 idAutor: video.idAutor,
                 nomeAutor: video.nomeAutor

@@ -15,10 +15,7 @@ exports.PostUploadVideo = async (req, res, next) => {
     let titulo = req.query.titulo
     
     if(!descricao)  descricao = null 
-    if(!titulo)  titulo = files[0].originalname 
-    
-
-    
+    if(!titulo)  titulo = files[0].originalname     
     await videoService.RegistrarVideo(id_usuario, files[0].filename, files[0].mimetype, titulo, descricao, files[1].filename)
 
     return await res.status(200).json({
