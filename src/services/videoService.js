@@ -29,7 +29,7 @@ exports.ListaAleatoria = async () =>{
         arrayVideos.push({
             id: video.idVideo,
             titulo: video.nomeVideo,
-            thumb:  `${config.app.host}${config.app.port}/api/thumb/?vi=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
+            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
             autor:{
                 idAutor: video.idAutor,
                 nomeAutor: video.nomeAutor
@@ -60,7 +60,7 @@ exports.BuscarVideosPorIdCanal = async (id) =>{
         arrayVideos.push({
             id: video.idVideo,
             titulo: video.nomeVideo,
-            thumb:  `${config.app.host}${config.app.port}/api/thumb/?vi=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
+            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
             autor:{
                 idAutor: video.idAutor,
                 nomeAutor: video.nomeAutor
@@ -77,6 +77,7 @@ exports.BuscarVideosPorNome = async (nome)=>{
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
                     vi.descricao AS descricao,
+                    vi.thumb,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
@@ -92,7 +93,7 @@ exports.BuscarVideosPorNome = async (nome)=>{
         arrayVideos.push({
             id: video.idVideo,
             titulo: video.nomeVideo,
-            thumb:  `${config.app.host}${config.app.port}/api/thumb/?vi=${video.nomeArquivo.replace('.mp4', '.jpg')}`,
+            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
             descricao: video.descricao,
             autor:{
                 idAutor: video.idAutor,
@@ -111,6 +112,7 @@ exports.BuscarVideoPorId = async (id) => {
                     vi.file_nome AS nomeArquivo,
                     vi.descricao AS descricao,
                     vi.visualizacoes AS visualizacoes,
+                    vi.thumb,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
                 FROM videoplayer.video AS vi
@@ -124,7 +126,7 @@ exports.BuscarVideoPorId = async (id) => {
     let video = {
         id: result.idVideo,
         titulo: result.nomeVideo,
-        thumb: `${config.app.host}${config.app.port}/api/thumb/?tb=${result.nomeArquivo.replace('.mp4', '.jpg')}`,
+        thumb: `${config.app.host}${config.app.port}/api/video/thumb/?tb=${result.thumb}`,
         URL:   `${config.app.host}${config.app.port}/api/video/?vi=${result.nomeArquivo}`,
         visualizacoes: result.visualizacoes,
         descricao: result.descricao,

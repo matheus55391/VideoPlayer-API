@@ -76,6 +76,15 @@ exports.GetVideo =  async (req, res, next) =>{
     
 } 
 
+exports.GetThumb = async (req, res, next) =>{
+    const nomeArquivo = req.query.tb
+    if(!nomeArquivo) return res.status(404).json({error: {message:'Video não encontrado.'}})
+    //if(!nomeArquivo.includes('.jpg')) return res.status(404).json({error: {message:'Erro no nome na thumb.'}})
+    
+    const url = arquivo.GerarUrlAbsoluta(nomeArquivo)
+    return await res.status(200).sendFile(url)
+}
+
 exports.PostComentarVideo = async (req, res, next) =>{
 
     const token = req.headers['authorization']

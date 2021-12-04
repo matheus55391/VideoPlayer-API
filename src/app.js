@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 app.use(morgan('dev'))
-
+app.get('/favicon.ico', (req, res) => res.status(204));
 app.use('/api', routes)
 
 app.use((req, res, next) =>{ 

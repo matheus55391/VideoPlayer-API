@@ -11,12 +11,14 @@ router.post('/usuario/cadastrar', UsuarioController.PostCadastrar)
 router.get('/canal', VideoController.GetBuscarVideosPorIdCanal)
 
 router.post('/video/upload', multer(multerConfig).any(),  VideoController.PostUploadVideo)
-
 router.post('/video/comentar', VideoController.PostComentarVideo)
+
+
+
 router.get('/video/listaAleatoria', VideoController.GetListaAleatoria)
 router.get('/video/buscar/', VideoController.GetBuscarVideosPorNome)
 router.get('/video/player', VideoController.GetBuscarVideoPorId)
 router.get('/video/', VideoController.GetVideo)
-
+router.get('/video/thumb/', VideoController.GetThumb)
 
 module.exports = router

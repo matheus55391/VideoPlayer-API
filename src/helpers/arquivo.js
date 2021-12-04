@@ -3,7 +3,7 @@ const path = require('path')
 
 exports.GerarUrlAbsoluta = (nomeArquivo) =>{
     if(nomeArquivo.includes('.mp4')) return path.resolve(__dirname, '..', '..', 'public','videos', nomeArquivo)
-    if(nomeArquivo.includes('.jpg')) return path.resolve(__dirname, '..', '..', 'public','thumb', nomeArquivo) 
+    if(nomeArquivo.includes('.jpg') || nomeArquivo.includes('.png') ) return path.resolve(__dirname, '..', '..', 'public','thumbs', nomeArquivo) 
 }
 
 exports.CriarPastasPublicas = ()=>{
