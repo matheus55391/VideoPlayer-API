@@ -14,6 +14,8 @@ exports.ListaAleatoria = async () =>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
+                    vi.descricao AS descricao,
+                    vi.visualizacoes AS visualizacoes,
                     vi.thumb,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
@@ -31,6 +33,8 @@ exports.ListaAleatoria = async () =>{
             id: video.idVideo,
             titulo: video.nomeVideo,
             thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
+            visualizacoes: video.visualizacoes,
+            descricao: video.descricao,
             autor:{
                 idAutor: video.idAutor,
                 nomeAutor: video.nomeAutor
@@ -46,6 +50,8 @@ exports.BuscarVideosPorIdCanal = async (id) =>{
                     vi.id_video AS idVideo, 
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
+                    vi.descricao AS descricao,
+                    vi.visualizacoes AS visualizacoes,
                     vi.thumb,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
@@ -63,6 +69,8 @@ exports.BuscarVideosPorIdCanal = async (id) =>{
             id: video.idVideo,
             titulo: video.nomeVideo,
             thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
+            visualizacoes: video.visualizacoes,
+            descricao: video.descricao,
             autor:{
                 idAutor: video.idAutor,
                 nomeAutor: video.nomeAutor
@@ -79,6 +87,7 @@ exports.BuscarVideosPorNome = async (nome)=>{
                     vi.video_nome AS nomeVideo,
                     vi.file_nome AS nomeArquivo,
                     vi.descricao AS descricao,
+                    vi.visualizacoes AS visualizacoes,
                     vi.thumb,
                     us.id_usuario AS idAutor, 
                     us.nome AS nomeAutor    
@@ -96,6 +105,7 @@ exports.BuscarVideosPorNome = async (nome)=>{
             id: video.idVideo,
             titulo: video.nomeVideo,
             thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
+            visualizacoes: video.visualizacoes,
             descricao: video.descricao,
             autor:{
                 idAutor: video.idAutor,
