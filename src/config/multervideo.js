@@ -38,7 +38,7 @@ module.exports = {
 
 
                 } catch(err){
-                    cb(new Error('Invalid token.'))
+                    cb(new Error('Token inválido.'))
                 }
             }
         },
@@ -47,18 +47,19 @@ module.exports = {
                 if(err) {
                     cb(err)
                 }
-                const fileName = (fileName) => {
-                    if(fileName.includes('.mp4')){
+                const gerarNomeHex = (mimetype) => {
+
+                    if(mimetype.includes('video/mp4')){
                         return  `${hash.toString('hex')}` + ".mp4"
-                    } else if(fileName.includes('.jpg')){
+                    } else if(mimetype.includes('image/jpeg')){
                         return  `${hash.toString('hex')}` + ".jpg"
-                    } else if(fileName.includes('.png')){
+                    } else if(mimetype.includes('image/png')){
                         return  `${hash.toString('hex')}` + ".png"
                     } else{
-                        return cb(new Error('Formato invalido.'))
+                        return cb(new Error('Formato inválido.'))
                     }
                 }
-                cb(null, fileName(file.originalname))
+                cb(null, fileName(file.gerarNomeHex))
             })
         }
     }),
