@@ -59,7 +59,7 @@ module.exports = {
                         return cb(new Error('Formato inválido.'))
                     }
                 }
-                cb(null, fileName(file.gerarNomeHex))
+                cb(null, gerarNomeHex(file.mimetype))
             })
         }
     }),
