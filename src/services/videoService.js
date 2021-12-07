@@ -25,22 +25,25 @@ exports.ListaAleatoria = async () =>{
                 LIMIT 16`
     
     let result = await mysql.query(SQL)
-    let arrayVideos = []
-    if(result == null) return await null
 
-    result.map((video)=>{      
-        arrayVideos.push({
-            id: video.idVideo,
-            titulo: video.nomeVideo,
-            thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
-            visualizacoes: video.visualizacoes,
-            descricao: video.descricao,
-            autor:{
-                idAutor: video.idAutor,
-                nomeAutor: video.nomeAutor
-            }
-        })
-    })  
+    let arrayVideos = []
+    if(result.length > 0) {
+        result.map((video)=>{      
+            arrayVideos.push({
+                id: video.idVideo,
+                titulo: video.nomeVideo,
+                thumb:  `${config.app.host}${config.app.port}/api/video/thumb/?tb=${video.thumb}`,
+                visualizacoes: video.visualizacoes,
+                descricao: video.descricao,
+                autor:{
+                    idAutor: video.idAutor,
+                    nomeAutor: video.nomeAutor
+                }
+            })
+        })  
+    }
+
+
 
     return await arrayVideos
 }

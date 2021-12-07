@@ -1,6 +1,4 @@
---Pasta de configuração do mysql
-
-create database videoplayer
+create database videoplayer;
 
 CREATE TABLE IF NOT EXISTS videoplayer.usuario  (
   id_usuario  INT NOT NULL AUTO_INCREMENT,
@@ -8,7 +6,7 @@ CREATE TABLE IF NOT EXISTS videoplayer.usuario  (
   senha  VARCHAR(100) NOT NULL,
   PRIMARY KEY( id_usuario ),
   UNIQUE( nome )
-)
+);
 
 CREATE TABLE IF NOT EXISTS  videoplayer.video  (
   id_video  INT NOT NULL AUTO_INCREMENT,
@@ -22,7 +20,7 @@ CREATE TABLE IF NOT EXISTS  videoplayer.video  (
   PRIMARY KEY ( id_video ),
   UNIQUE INDEX  id_video_UNIQUE  ( id_video  ASC) VISIBLE,
   UNIQUE INDEX  file_nome_UNIQUE  ( file_nome  ASC) VISIBLE
-)
+);
 
 CREATE TABLE IF NOT EXISTS videoplayer.comentario (
     id_comentario  INT NOT NULL AUTO_INCREMENT,
@@ -31,5 +29,4 @@ CREATE TABLE IF NOT EXISTS videoplayer.comentario (
     comentario VARCHAR(255),
     datahora DATETIME,
     PRIMARY KEY( id_comentario )
-
-)
+);

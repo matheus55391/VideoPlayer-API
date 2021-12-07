@@ -55,7 +55,7 @@ exports.GetBuscarVideoPorId = async (req, res, next) =>{
 
 }
 
-exports.GetBuscarVideosPorIdCanal = async (req, res, next) =>{
+exports.GetBuscarCanalPorId = async (req, res, next) =>{
 
     let id = req.query.id
     let result = await videoService.BuscarVideosPorIdCanal(id)
