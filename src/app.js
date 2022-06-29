@@ -18,7 +18,7 @@ app.use('/api', routes)
 
 app.use((req, res, next) =>{ 
     const erro = new Error('Não encontrado')
-    erro.status(404)
+    erro.status = 404
     next(erro)
 })
 
