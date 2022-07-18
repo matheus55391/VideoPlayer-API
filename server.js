@@ -8,5 +8,5 @@ const host = config.app.host
 const server = http.createServer(app)
 
 server.listen(port, ()=>{
-    console.log(`Servidor inicializado -> ${host}${port}/api`)
+    console.log(`Servidor inicializado -> ${host}:${port}/api`)
 })
